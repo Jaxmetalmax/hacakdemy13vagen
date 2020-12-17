@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  appweb:
+    image: jaxmetalmax/python-hackademy:1.0
+    ports:
+      - 8000:8000
+      - 3000:3000
+    volumes:
+      - "/home/vagrant/data:/home/appuser/data"
+    tty: true
+    stdin_open: true
+
+  db:
+    image: postgres:12.5
+    ports: 
+      - 5432:5432
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=p4ssw0rd
+      - POSTGRES_USER=admindb
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - pgdata:/var/lib/postgresql/data/pgdata
+
+volumes:
+  pgdata:
